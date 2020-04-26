@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Viralert</title>
+    <link th:href="@{/public/style.css}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet'>
+</head>
+<style>
+    body {
+        background: #343640;
+        background-size: 400% 400%;
+        animation: gradient 10s ease infinite;
+    }
+    @keyframes gradient {
+        0% {
+            background-position: 0% 50%;
+        }
+        25% {
+            background-position: 50% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        75% {
+            background-position: 50% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+    #wrapper {
+        /*overflow-y: scroll;*/
+        overflow-x: hidden;
+        text-align: center;
+        padding: 25px 25px;
+        position: fixed;
+        top: 100px;
+        left: 27.5%;
+        width: 45%; /* 600 */
+        height: 60%;
+        margin: auto;
+        background-color: #8d7144;
+        border-radius: 20px;
+        /*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
+    }
+    .submitButton {
+        /*margin-left: 50%;*/
+        background-color: white;
+        -webkit-border-top-left-radius:28px;
+        -moz-border-radius-topleft:28px;
+        border-top-left-radius:28px;
+        -webkit-border-top-right-radius:28px;
+        -moz-border-radius-topright:28px;
+        border-top-right-radius:28px;
+        -webkit-border-bottom-right-radius:28px;
+        -moz-border-radius-bottomright:28px;
+        border-bottom-right-radius:28px;
+        -webkit-border-bottom-left-radius:28px;
+        -moz-border-radius-bottomleft:28px;
+        border-bottom-left-radius:28px;
+        text-indent:0;
+        border:2px solid #343640;
+        display:inline-block;
+        color:#8d7144;
+        font-size:20px;
+        font-weight:bold;
+        font-family: Raleway;
+        font-style:normal;
+        height:50px;
+        line-height:50px;
+        width:120px;
+        text-decoration:none;
+        text-align:center;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        transition: 0.375s;
+    }
+    .submitButton:hover {
+        text-decoration: none;
+        color: white;
+        background-color: #8d7144;
+        border: 2px solid white;
+        transition: 0.375s;
+    }
+    .loginButton {
+        margin-left: 40%;
+        background-color:white;
+        -webkit-border-top-left-radius:28px;
+        -moz-border-radius-topleft:28px;
+        border-top-left-radius:28px;
+        -webkit-border-top-right-radius:28px;
+        -moz-border-radius-topright:28px;
+        border-top-right-radius:28px;
+        -webkit-border-bottom-right-radius:28px;
+        -moz-border-radius-bottomright:28px;
+        border-bottom-right-radius:28px;
+        -webkit-border-bottom-left-radius:28px;
+        -moz-border-radius-bottomleft:28px;
+        border-bottom-left-radius:28px;
+        text-indent:0;
+        border:1px solid #8d7144;
+        display:inline-block;
+        color: #8d7144;
+        font-size:20px;
+        height:50px;
+        line-height:50px;
+        width:110px;
+        text-decoration:none;
+        text-align:center;
+        font-family: Raleway;
+        font-weight: bold;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        transition: border .375s, background-color .375s, color .375s;
+    }
+    .loginButton:hover {
+        text-decoration: none;
+        color: white;
+        background-color: rgba(255, 41, 38, 0);
+        border: 1px solid #8d7144;
+        transition: border .375s, background-color .375s, color .375s;
+    }
+    .title {
+        padding-left: 30px;
+        line-height: 90px;
+        font-size: 40px;
+        font-weight: bold;
+        font-family: Raleway;
+        color: white;
+    }
+    .title:hover {
+        text-decoration: none;
+        color: white;
+    }
+</style>
+
+
+<body>
+<a href="/" class="title">Viralert</a>
+    <a href="signup.html" class="loginButton" style="float:right; margin-top:20px; margin-right:20px">Sign Up</a>
+
+    <div id="wrapper">
+        <BR>
+        <h4 style="color:white; font-weight:bold; font-family: Raleway;">Login</h4>
+<!--        <p style="text-align: center; color:white; padding:20px 10px;">-->
+<!--            If you don't have an account, <a class="link" style="color:coral;" href="signup.html">sign up here!</a>-->
+<!--        </p>-->
+
+        <form class="needs-validation" action="#" th:action="@{/login.html}" method="post">
+            <div class="form-group" style="text-align:left;">
+                <div>
+                    <div style="padding:0% 10%;">
+                        <p style="color:white; padding:15px 10px; font-family: Raleway;"> <label for="username">Username:</label><input placeholder="Enter your username" type="text" id="username" name="username" autofocus="autofocus" class="form-control" required/></p>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" style="text-align:left;">
+                <div>
+                   <div style="padding:0% 10%;">
+                       <p style="color:white; padding: 15px 10px; font-family: Raleway;"><label for="password">Password:</label><input placeholder="Enter your password" type="password" id="password" name="password" autofocus="autofocus" class="form-control" required/></p>
+                   </div>
+                </div>
+            </div>
+            <p style="text-align: center;">
+                <input id="submit" type="submit" value="Log in" class="submitButton" />
+            </p>
+        </form>
+    <p style="color:#343640; font-weight: bold; font-family: Raleway;" th:if="${loginError}" class="error">Wrong user or password</p>
+    </div>
+</body>
+</html>

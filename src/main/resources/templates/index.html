@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+
+<!--suppress ALL -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Google Maps</title>
+<!--    <script src="index.js"></script>-->
+    <link rel="stylesheet" href="mapsStyle.css">
+    <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet'>
+    <script src="https://kit.fontawesome.com/c939d0e917.js"></script>
+</head>
+<style>
+    body {
+        background: #343640;
+        background-size: 400% 400%;
+        animation: gradient 10s ease infinite;
+    }
+    .loginButton {
+        margin-left: 40%;
+        background-color:white;
+        -webkit-border-top-left-radius:28px;
+        -moz-border-radius-topleft:28px;
+        border-top-left-radius:28px;
+        -webkit-border-top-right-radius:28px;
+        -moz-border-radius-topright:28px;
+        border-top-right-radius:28px;
+        -webkit-border-bottom-right-radius:28px;
+        -moz-border-radius-bottomright:28px;
+        border-bottom-right-radius:28px;
+        -webkit-border-bottom-left-radius:28px;
+        -moz-border-radius-bottomleft:28px;
+        border-bottom-left-radius:28px;
+        text-indent:0;
+        border:1px solid #8d7144;
+        display:inline-block;
+        color: #8d7144;
+        font-size:20px;
+        height:50px;
+        line-height:50px;
+        width:110px;
+        text-decoration:none;
+        text-align:center;
+        font-weight: bold;
+        font-family: "Raleway", sans-serif;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        transition: background-color .375s, border .375s;
+    }
+    .loginButton:hover {
+        text-decoration: none;
+        color: white;
+        background-color: rgba(255, 41, 38, 0);
+        border: 1px solid #8d7144;
+        transition: background-color .375s, border .375s;
+    }
+
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+    }
+
+
+    #map {
+        width: 100%;
+        height: 100%;
+    }
+
+    .title {
+        padding-left: 30px;
+        line-height: 90px;
+        font-size: 40px;
+        font-weight: bold;
+        font-family: Raleway;
+        color: white;
+        text-decoration: none;
+    }
+
+    .search-container {
+        border-radius: 30px;
+        position: absolute;
+        z-index: 100;
+        top: 230px;
+        left: 100px;
+        width: 400px;
+        height: 60px;
+        background-color: #454E53;
+        display: flex;
+    }
+
+    .search-container .search {
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .search-container input {
+        width: 100%;
+        font-size: 25px;
+        background-color: transparent;
+        border: none;
+        color: white;
+    }
+
+    .search-container input:focus {
+        outline: none;
+    }
+
+    .search i {
+        font-size: 25px;
+        color: white;
+    }
+
+    .stores-list-container {
+        width: 400px;
+        position: absolute;
+        z-index: 100;
+        background: white;
+        left: 100px;
+        top: 320px;
+        border-radius: 30px;
+        bottom: 20px;
+        display: flex;
+        overflow-y: hidden;
+        padding-bottom: 30px;
+    }
+
+    .store-container {
+        border-bottom: 1px solid #979797;
+        display: flex;
+        cursor: pointer;
+    }
+
+    .store-info-container {
+        flex-grow: 1;
+    }
+
+    .store-number-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .store-address {
+        font-size: 21px;
+        color: #514C4C;
+        margin-top: 30px;
+    }
+
+    .store-address span {
+        display: block;
+    }
+
+    .store-phone-number {
+        color: #B5ADAD;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+
+    .store-number {
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #454E53;
+        color: #B5ADAD;
+        border-radius: 50%;
+        font-size: 12px;
+
+    }
+
+    .stores-list {
+        flex-grow: 1;
+        overflow-y: scroll;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .store-info-window {
+        min-width: 300px;
+        font-size: 18px;
+        padding: 8px;
+    }
+
+    .store-info-name {
+        font-size: 24px;
+        font-weight: bold;
+        color: rgba(0,0,0,.87);
+    }
+
+    .store-info-status {
+        margin-top: 6px;
+        border-bottom: 1px solid #00000029;
+        padding-bottom: 6px;
+    }
+
+    .store-info-address, .store-info-phone {
+        margin-top: 8px;
+        display: flex;
+        align-items: center;
+    }
+
+    .store-info-address .circle, .store-info-phone .circle {
+        width: 30px;
+        height: 30px;
+        background-color: #1985A1;
+        color: white;
+        border-radius: 50%;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        margin-right: 8px;
+    }
+
+    .search i {
+        cursor: pointer;
+    }
+
+    .store-container-background {
+        display: flex;
+        flex-grow: 1;
+        border-radius: 18px;
+        padding-left: 8px;
+        padding-right: 8px;
+        margin-bottom: 12px;
+        margin-top: 12px;
+        transition: all 0.2s ease-in-out;
+    }
+
+    .store-container-background:hover {
+        background-color: #ccc;
+    }
+</style>
+<body>
+    <a href="/" class="title">Viralert</a>
+    <a href="report.html" class="loginButton" style="float:right; margin-top:22px;  margin-right:20px; margin-bottom:5px; font-family: Raleway;">Report</a>
+<!--    <div class="title">Locate Cases Near Me</div>-->
+    <div id="map"></div>
+    <script>
+        window.onload = function() {
+        }
+
+        var map;
+        var markers = [];
+        var infoWindow;
+
+        function initMap() {
+            var Place2 = {lat: 37.3260771, lng: -122.028694};
+            var Place3 = {lat: 37.324019, lng: -122.027339};
+            var Place4 = {lat: 37.327969, lng: -122.026295};
+            var Place5 = {lat: 37.327764, lng: -122.031949};
+            var Place6 = {lat: 37.325102, lng: -122.031616};
+            var Place7 = {lat: 37.325307, lng: -122.025018};
+            var Place8 = {lat: 37.327184, lng: -122.023591};
+            var mainMap = new google.maps.Map(document.getElementById('map'), {
+                zoom: 17,
+                center: Place2
+            });
+            var marker2 = new google.maps.Marker({
+                position: Place2,
+                map: mainMap
+            });
+            var marker3 = new google.maps.Marker({
+                position: Place3,
+                map:mainMap
+            });
+            var marker4 = new google.maps.Marker({
+                position: Place4,
+                map:mainMap
+            });
+            var marker5 = new google.maps.Marker({
+                position: Place5,
+                map:mainMap
+            });
+            var marker6 = new google.maps.Marker({
+                position: Place6,
+                map:mainMap
+            });
+            var marker7 = new google.maps.Marker({
+                position: Place7,
+                map:mainMap
+            });
+            var marker8 = new google.maps.Marker({
+                position: Place8,
+                map:mainMap
+            });
+        }
+
+
+
+        function setOnClickListener(){
+            var storeElements = document.querySelectorAll('.store-container');
+            storeElements.forEach(function(elem, index){
+                elem.addEventListener('click', function(){
+                    new google.maps.event.trigger(markers[index], 'click');
+                })
+            })
+        }
+
+        function displayStores(stores){
+            var storesHtml = '';
+            for(var [index, store] of stores.entries()){
+                var address = store['addressLines'];
+                var phone = store['phoneNumber'];
+                storesHtml += `
+            <div class="store-container">
+                <div class="store-container-background">
+                    <div class="store-info-container">
+                        <div class="store-address">
+                            <span>${address[0]}</span>
+                            <span>${address[1]}</span>
+                        </div>
+                        <div class="store-phone-number">${phone}</div>
+                    </div>
+                    <div class="store-number-container">
+                        <div class="store-number">
+                            ${index+1}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `
+                document.querySelector('.stores-list').innerHTML = storesHtml;
+            }
+        }
+
+
+        function showStoresMarkers(stores){
+            var bounds = new google.maps.LatLngBounds();
+            for(var [index, store] of stores.entries()){
+                var latlng = new google.maps.LatLng(
+                    store["coordinates"]["latitude"],
+                    store["coordinates"]["longitude"]);
+                var name = store["name"];
+                var address = store["addressLines"][0];
+                var openStatusText = store["openStatusText"]
+                var phoneNumber = store["phoneNumber"];
+                bounds.extend(latlng);
+                createMarker(latlng, name, address, openStatusText, phoneNumber, index+1);
+            }
+            map.fitBounds(bounds);
+        }
+
+        function createMarker(latlng, name, address, openStatusText, phoneNumber, index){
+            var html = `
+        <div class="store-info-window">
+            <div class="store-info-name">
+                ${name}
+            </div>
+            <div class="store-info-status">
+                ${openStatusText}
+            </div>
+            <div class="store-info-address">
+                <div class="circle">
+                    <i class="fas fa-location-arrow"></i>
+                </div>
+                ${address}
+            </div>
+            <div class="store-info-phone">
+                <div class="circle">
+                    <i class="fas fa-phone-alt"></i>
+                </div>
+                ${phoneNumber}
+            </div>
+        </div>
+    `;
+            var marker = new google.maps.Marker({
+                map: map,
+                position: latlng,
+                label: index.toString()
+            });
+            google.maps.event.addListener(marker, 'click', function() {
+                infoWindow.setContent(html);
+                infoWindow.open(map, marker);
+            });
+            markers.push(marker);
+        }
+
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCUiR2E59lVJHwVedGnglClcB-6SGM_5Rk&callback=initMap"
+        ></script>
+</body>
+</html>
+
